@@ -2,47 +2,50 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>מזל טוב!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Main wrapper for parallax and scroll effects -->
-    <main class="parallax-container">
-
-        <!-- SECTION 1: The Hook - Festive -->
-        <section id="birthday-section">
-            <div class="parallax-layer bg-layer">
-                <!-- Background decorative elements can be added here -->
+    <!-- Device Wrapper: Mimics iPhone 15 Pro Max aspect ratio on desktop -->
+    <div class="device-container">
+        
+        <main class="experience-wrapper">
+            
+            <!-- Section 1: The Decoy -->
+            <section id="decoy-section" class="section decoy">
+                <div class="decoy-content">
+                    <h1 id="decoy-title"></h1>
+                    <p id="decoy-subtitle"></p>
+                    <div id="decoy-greeting" class="greeting-card"></div>
+                </div>
+                <!-- Confetti container for JS/CSS animations -->
                 <div class="confetti-container"></div>
-            </div>
-            <div class="content-layer">
-                <div class="festive-content">
-                    <h1 class="festive-title">[INSERT_FESTIVE_GREETING_HERE]</h1>
-                    <p class="festive-subtitle">[INSERT_FUN_SUBTITLE_HERE]</p>
+            </section>
+
+            <!-- Section 2: The Heartfelt Letter -->
+            <section id="letter-section" class="section letter">
+                <!-- Background Layer (Paper Texture) -->
+                <div class="parallax-layer bg-layer"></div>
+
+                <!-- Middle Layer (The actual letter) -->
+                <div class="parallax-layer middle-layer">
+                    <div id="real-letter" class="letter-text"></div>
                 </div>
-            </div>
-        </section>
 
-        <!-- SECTION 2: The Heart - Serious -->
-        <section id="heartfelt-section">
-            <div class="parallax-layer bg-layer">
-                <!-- Subtle, atmospheric background for the emotional section -->
-                <div class="ambient-light"></div>
-            </div>
-            <div class="content-layer">
-                <div class="heartfelt-content">
-                    <div class="letter-body">
-                        [INSERT_HEARTFELT_BLESSING_HERE]
-                    </div>
-                    <p class="sign-off">[INSERT_YOUR_NAME_HERE]</p>
+                <!-- Foreground Layer (The Lilies) -->
+                <div class="parallax-layer fg-layer" id="lily-container">
+                    <!-- Lilies will be injected or placed here -->
+                    <!-- Example Lily SVGs will be handled in CSS/JS for positioning -->
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </main>
+        </main>
+    </div>
 
+    <!-- Content first, then logic -->
+    <script src="content.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

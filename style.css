@@ -1,6 +1,23 @@
 /* 
- * Custom Typography 
+ * BIRTHDAY EXPERIENCE STYLES
+ * --------------------------
+ * Design: Mobile-first, iPhone 15 Pro Max Aspect Ratio (19.5:9)
  */
+
+:root {
+    /* Color Palette - Light Blue Diamond & Nostalgic Blues */
+    --color-bg-decoy: #ffefba;
+    --color-accent-decoy: #ff6b6b;
+    --color-light-blue: #b9d9eb;
+    --color-pale-blue: #add8e6;
+    --color-deep-blue: #4682b4;
+    --color-paper-text: #2c3e50;
+    
+    /* Dimensions */
+    --iphone-ratio: 19.5 / 9;
+}
+
+/* Custom Handwriting Font */
 @font-face {
     font-family: 'MyHandwriting';
     src: url('assets/fonts/ftluiz.woff2') format('woff2');
@@ -9,188 +26,210 @@
     font-display: swap;
 }
 
-:root {
-    --primary-accent: #e9dcb7;
-    --festive-bg: #fdfbf5;
-    --heartfelt-bg: #2c2c2c; /* Deeper, intimate tone */
-    --heartfelt-text: #e9dcb7;
-    --transition-speed: 0.6s;
-}
-
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: 'MyHandwriting', cursive, serif;
-    background-color: var(--festive-bg);
-    color: #333;
+    background-color: #1a1a1a; /* Dark background for desktop mimic */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     overflow-x: hidden;
-    line-height: 1.6;
-    direction: rtl;
+    height: 100%;
 }
 
 /* 
- * Parallax Container 
+ * DEVICE WRAPPER 
+ * Mimics iPhone 15 Pro Max on desktop, full screen on mobile.
  */
-.parallax-container {
+.device-container {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
-section {
-    position: relative;
-    /* Height > 100vh to create the scroll-through effect for parallax */
-    height: 200vh; 
-    width: 100%;
+/* Desktop constraints: 19.5:9 Aspect Ratio */
+@media (min-width: 600px) {
+    .device-container {
+        width: auto;
+        height: 95vh;
+    }
+    .experience-wrapper {
+        width: calc(95vh / (19.5 / 9)); 
+        height: 95vh;
+        border: 12px solid #333;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
+        background: white;
+    }
 }
 
-.parallax-layer {
+/* Mobile: Full Viewport */
+@media (max-width: 599px) {
+    .experience-wrapper {
+        width: 100vw;
+        height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+.experience-wrapper {
+    position: relative;
+    background-color: white;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+.experience-wrapper::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
+/* SECTION BASE */
+.section {
+    position: relative;
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* SECTION 1: THE DECOY */
+.decoy {
+    background: linear-gradient(135deg, #ffefba 0%, #ffffff 100%);
+    z-index: 10;
+}
+
+.decoy-content h1 {
+    font-size: 3rem;
+    color: var(--color-accent-decoy);
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+.decoy-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.greeting-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    font-size: 1.1rem;
+    color: #444;
+    max-width: 80%;
+    margin: 0 auto;
+    border: 3px dashed var(--color-accent-decoy);
+}
+
+/* Confetti Animation */
+.confetti-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
 }
 
-.content-layer {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    padding: 2rem;
-    text-align: center;
-}
-
-/* 
- * Section 1: Birthday (Festive) 
- */
-#birthday-section {
-    background-color: var(--festive-bg);
-}
-
-#birthday-section .bg-layer {
-    /* Background moves slightly slower than the scroll to create depth */
-    animation: bg-parallax linear;
-    animation-timeline: scroll();
-}
-
-.festive-content {
-    max-width: 800px;
-    opacity: 1;
-    /* Fade out as we scroll down */
-    animation: fade-out linear;
-    animation-timeline: view();
-    animation-range: exit 0% exit 100%;
-}
-
-.festive-title {
-    font-size: clamp(3rem, 10vw, 6rem);
-    color: #bfa36d; /* Slightly darker version of accent */
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.festive-subtitle {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    color: #666;
-}
-
-/* Confetti elements */
-.confetti-container {
+.confetti {
     position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    animation: fall linear forwards;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh) rotate(360deg); }
+}
+
+/* SECTION 2: THE HEARTFELT LETTER */
+.letter {
+    background-color: var(--color-light-blue);
+    position: relative;
+    padding: 0;
+    display: block; /* Let content flow naturally for scroll */
+    min-height: 200dvh; /* Give it room to scroll */
+}
+
+/* Aged Paper Texture Effect */
+.bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    z-index: -2;
+    background-color: var(--color-light-blue);
+    /* Mix a radial gradient with a noise SVG for "aged paper" feel */
+    background-image: 
+        radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.05) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-blend-mode: multiply;
+    opacity: 0.8;
+}
+
+.middle-layer {
+    position: relative;
+    z-index: 1;
+    padding: 10vh 10% 20vh 10%;
+    min-height: 100%;
+}
+
+.letter-text {
+    font-family: 'MyHandwriting', cursive;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: var(--color-paper-text);
+    text-align: right;
+    white-space: pre-wrap; /* Preserve line breaks from content.js */
+}
+
+/* Foreground Layer - Lilies */
+.fg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
     pointer-events: none;
 }
 
-/* 
- * Section 2: Heartfelt (Serious) 
- */
-#heartfelt-section {
-    background-color: var(--heartfelt-bg);
-    color: var(--heartfelt-text);
-}
-
-#heartfelt-section .content-layer {
-    /* Fade in as we enter this section */
-    animation: fade-in linear;
-    animation-timeline: view();
-    animation-range: entry 0% entry 100%;
-}
-
-.heartfelt-content {
-    max-width: 700px;
-    text-align: right; /* Proper RTL alignment for the letter */
-}
-
-.letter-body {
-    font-size: clamp(1.2rem, 4vw, 2rem);
-    margin-bottom: 2rem;
-    white-space: pre-wrap; /* Preserves line breaks in the letter */
-}
-
-.sign-off {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    text-align: left; /* Sign-off usually goes to the left in RTL letters */
-    margin-top: 3rem;
-    font-style: italic;
-}
-
-.ambient-light {
+.lily {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60vw;
-    height: 60vw;
-    background: radial-gradient(circle, rgba(233, 220, 183, 0.15) 0%, rgba(0,0,0,0) 70%);
-    filter: blur(50px);
-    z-index: -1;
+    width: 150px;
+    height: 150px;
+    /* Blue outline lily SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 C60 30 90 40 50 60 C10 40 40 30 50 10 M50 60 C40 80 10 90 50 100 C90 90 60 80 50 60 M50 60 L50 100' fill='none' stroke='%234682b4' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.6;
 }
 
-/* 
- * Animations 
- */
-@keyframes fade-out {
-    to {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(50px) scale(1.1);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes bg-parallax {
-    from { transform: translateY(0); }
-    to { transform: translateY(-20%); }
-}
-
-/* 
- * Responsive Adjustments 
- */
-@media (max-width: 768px) {
-    .content-layer {
-        padding: 1.5rem;
-    }
-    
-    .festive-title {
-        line-height: 1.2;
-    }
+/* Utility for transition */
+.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
