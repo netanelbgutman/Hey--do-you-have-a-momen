@@ -1,0 +1,196 @@
+/* 
+ * Custom Typography 
+ */
+@font-face {
+    font-family: 'MyHandwriting';
+    src: url('assets/fonts/ftluiz.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --primary-accent: #e9dcb7;
+    --festive-bg: #fdfbf5;
+    --heartfelt-bg: #2c2c2c; /* Deeper, intimate tone */
+    --heartfelt-text: #e9dcb7;
+    --transition-speed: 0.6s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'MyHandwriting', cursive, serif;
+    background-color: var(--festive-bg);
+    color: #333;
+    overflow-x: hidden;
+    line-height: 1.6;
+    direction: rtl;
+}
+
+/* 
+ * Parallax Container 
+ */
+.parallax-container {
+    position: relative;
+    width: 100%;
+}
+
+section {
+    position: relative;
+    /* Height > 100vh to create the scroll-through effect for parallax */
+    height: 200vh; 
+    width: 100%;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.content-layer {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* 
+ * Section 1: Birthday (Festive) 
+ */
+#birthday-section {
+    background-color: var(--festive-bg);
+}
+
+#birthday-section .bg-layer {
+    /* Background moves slightly slower than the scroll to create depth */
+    animation: bg-parallax linear;
+    animation-timeline: scroll();
+}
+
+.festive-content {
+    max-width: 800px;
+    opacity: 1;
+    /* Fade out as we scroll down */
+    animation: fade-out linear;
+    animation-timeline: view();
+    animation-range: exit 0% exit 100%;
+}
+
+.festive-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    color: #bfa36d; /* Slightly darker version of accent */
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.festive-subtitle {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    color: #666;
+}
+
+/* Confetti elements */
+.confetti-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* 
+ * Section 2: Heartfelt (Serious) 
+ */
+#heartfelt-section {
+    background-color: var(--heartfelt-bg);
+    color: var(--heartfelt-text);
+}
+
+#heartfelt-section .content-layer {
+    /* Fade in as we enter this section */
+    animation: fade-in linear;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+}
+
+.heartfelt-content {
+    max-width: 700px;
+    text-align: right; /* Proper RTL alignment for the letter */
+}
+
+.letter-body {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    margin-bottom: 2rem;
+    white-space: pre-wrap; /* Preserves line breaks in the letter */
+}
+
+.sign-off {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    text-align: left; /* Sign-off usually goes to the left in RTL letters */
+    margin-top: 3rem;
+    font-style: italic;
+}
+
+.ambient-light {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(233, 220, 183, 0.15) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(50px);
+    z-index: -1;
+}
+
+/* 
+ * Animations 
+ */
+@keyframes fade-out {
+    to {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes bg-parallax {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20%); }
+}
+
+/* 
+ * Responsive Adjustments 
+ */
+@media (max-width: 768px) {
+    .content-layer {
+        padding: 1.5rem;
+    }
+    
+    .festive-title {
+        line-height: 1.2;
+    }
+}
